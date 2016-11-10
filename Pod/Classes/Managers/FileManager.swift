@@ -26,12 +26,12 @@ import Foundation
 
     class func getPath(name: String, ext: String) -> NSURL{
         
-        let urlPath  = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(name).URLByAppendingPathExtension(ext)
-        let tempPath = urlPath.absoluteString
+        let urlPath  = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent(name)!.URLByAppendingPathExtension(ext)
+        let tempPath = urlPath!.absoluteString
         
-        if NSFileManager.defaultManager().fileExistsAtPath(urlPath.path!) {
+        if NSFileManager.defaultManager().fileExistsAtPath(urlPath!.path!) {
             do {
-                try NSFileManager.defaultManager().removeItemAtURL(urlPath)
+                try NSFileManager.defaultManager().removeItemAtURL(urlPath!)
             }
             catch let error as NSError {
                 
@@ -39,7 +39,7 @@ import Foundation
             }
         }
         
-        return NSURL(string: tempPath)!
+        return NSURL(string: tempPath!)!
     }
     
     class func contentsOfDirectory() {
@@ -80,8 +80,8 @@ import Foundation
         let fileManager     = NSFileManager.defaultManager()
         let directoryURL    = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)[0]
         let pathComponent   = getVideoName(name)
-        let fileURL         = directoryURL.URLByAppendingPathComponent(pathComponent).URLByAppendingPathExtension(ext)
+        let fileURL         = directoryURL.URLByAppendingPathComponent(pathComponent)!.URLByAppendingPathExtension(ext)
         
-        return fileURL
+        return fileURL!
     }
 }
